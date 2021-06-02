@@ -1,0 +1,82 @@
+    <form  [formGroup]="profileForm">
+        <h6>Please select any one of the company from below list :</h6>
+    <div class="row col-6">
+        <select formControlName="companyCode" class="dropdown" (change)="onNameChange()" [ngClass]="{ 'is-invalid': submitted && f.companyCode.errors }">
+        <option value="null" disabled selected>Select...</option>
+        <option *ngFor="let data of cmpyNames" [value]="data.CompanyCode">{{data.CompanyName}}</option>
+        </select>
+        <div *ngIf="submitted && f.companyCode.errors">
+            <div *ngIf="f.companyCode.errors.required" class="invalid">Company Name is required</div>
+        </div>
+    </div>
+    <h6 style="margin-top: 30px;margin-bottom: 20px;">Please select from and to date :</h6>
+    <div class="row">
+        <div class="col-5 form-group">
+          <div class="input-group">
+              <label style="margin-right: 10px;margin-top: 6px;">Start Date:</label>
+            <input class="form-control" placeholder="yyyy-mm-dd"
+                   name="dp" formControlName="startDate" ngbDatepicker #s="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="s.toggle()" type="button"></button>
+            </div>
+          </div>
+          <div *ngIf="submitted && f.startDate.errors" >
+            <div *ngIf="f.startDate.errors.required" class="invalid" style="margin-left: 20.5%;">StartDate is required</div>
+        </div>
+        </div>
+        <div class="col-5 form-group">
+            <div class="input-group">
+             <label style="margin-right: 10px;margin-top: 6px;">End Date:</label>
+              <input class="form-control" placeholder="yyyy-mm-dd"
+                     name="dps" formControlName="endDate" ngbDatepicker #e="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="e.toggle()" type="button"></button>
+              </div>
+            </div>
+            <div *ngIf="submitted && f.endDate.errors" >
+                <div *ngIf="f.endDate.errors.required" class="invalid" style="margin-left: 19.5%;">EndDate is required</div>
+            </div>
+            <div *ngIf="submitted && f.endDate.errors" >
+                <div *ngIf="f.endDate.errors.endGt" class="invalid" style="margin-left: 19.5%;">EndDate should be greater than start date</div>
+            </div>
+          </div>
+    </div>
+    <div class="text-center"><button style="margin-left:-11% !important;margin-top:3px" (click)="OnGetResultClick()">Get Results</button></div>
+    <div *ngIf="isResultClicked">
+        <table class="table table-striped" *ngIf="stockDetails.length>0" style="margin-top:20px">
+            <thead>
+              <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">StockName</th>
+                <th scope="col">StockPrice</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let stockDetail of stockDetails;let i=index;">
+              <tr>
+                <th scope="row">{{i+1}}</th>
+                <td>ICICI Prudential{{i+1}}</td>
+                <td>{{stockDetail.StockPrice}}</td>
+                <td>{{stockDetail.Date}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="table table-striped" *ngIf="stockDetails.length==0" style="margin-top:20px">
+            <thead>
+              <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">StockName</th>
+                <th scope="col">StockPrice</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr >
+                  <th colspan="4" class="tableNoData">There is no data to display</th>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</form>
+
+
