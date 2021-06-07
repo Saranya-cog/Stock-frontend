@@ -19,7 +19,7 @@ export class StockService{
         let headers={     
             'Access-Control-Allow-Credentials': 'true',
             'Access-Control-Allow-Origin': 'http://localhost:4200'};
-        return this.http.get<any>("https://stockmarket20210601124745.azurewebsites.net/api/v1.0/market/company/getall",{headers:headers})
+        return this.http.get<any>("https://stockmarket-win.azurewebsites.net/api/v1.0/market/company/getall?",{headers:headers})
         .pipe(map(data =>{
             return data;
         }));
@@ -29,7 +29,7 @@ export class StockService{
         let headers={     
             'Access-Control-Allow-Credentials': 'true',
             'Access-Control-Allow-Origin': 'http://localhost:4200'};
-        return this.http.get<any>("https://stockmarket20210601124745.azurewebsites.net/api/v1.0/market/stock/add/"+code+"/"+sDate+"/"+eDate,{headers:headers})
+        return this.http.get<any>("https://stockmarket-win.azurewebsites.net/api/v1.0/market/stock/add/"+code+"/"+sDate+"/"+eDate,{headers:headers})
         .pipe(map(data =>{
             return data;
         }));
